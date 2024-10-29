@@ -25,7 +25,7 @@ counter = solutions.ObjectCounter(
     names=model.names,
     draw_tracks=True,
     line_thickness=2,
-    show = False,
+    show = True,
 )
 
 # Loop para leitura e processamento dos frames
@@ -48,6 +48,13 @@ while cap.isOpened():
     frame_placeholder.image(frame, channels="RGB")
 
     # Pegar a contagem de classes, como pessoas detectadas saindo
+    #print(counter.track_ids)
+    for result in tracks:
+        # Iterar sobre as detecções
+        for box in result.boxes:
+            class_id = int(box.cls)  # ID da classe detectada
+            class_name = model.names[class_id]  # Nome da classe
+            print(class_name)
     pegaClasse = counter.classwise_counts
     person_out = pegaClasse.get('person', {}).get('OUT', 0)
 

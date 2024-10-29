@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div id="classe"></div>
+    <button type="button" id="iniciaExperimento" class="btn btn-primary">Iniciar Experimento</button>
+    <button type="button" id="terminaExperiemnto" class="btn btn-primary">Finalizar Experimento</button>
+    <div class="metricas">
+        <h2>Acuracia</h2>
+        <span id="acuracia"></span>
+        <h2>Recall</h2>
+        <span id="recall"></span>
+        <h2>Precisão</h2>
+        <span id="precisao"></span>
+        <table>
+            <th></th>
+            <th>Sim</th>
+            <th>Não</th>
+            <tr>
+                <th>Sim</th>
+                <td>Verdadeiro Positivo <span id="verdadeiroPositivo"></span></td>
+                <td>Verdadeiro Negativo <span id="verdadeiroNegativo"></span></td>
+            </tr>
+            <tr>
+                <th>Não</th>
+                <td>Falso Positivo <span id="falsoPositivo"></span></td>
+                <td>Falso Negativo <span id="falsoNegativo"></span></td>
+            </tr>
+        </table>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="metricas.js"></script>
+</body>
+</html>

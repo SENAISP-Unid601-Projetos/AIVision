@@ -1,0 +1,167 @@
+[
+    {
+        "id": "6df5eb93d91b3e31",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c73459c0904a181d",
+        "type": "websocket-listener",
+        "path": "/ws/data",
+        "wholemsg": "false"
+    },
+    {
+        "id": "df56e34de5927394",
+        "type": "MySQLdatabase",
+        "name": "teste",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "projintegrador",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "6327d6e603ed8e38",
+        "type": "debug",
+        "z": "6df5eb93d91b3e31",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "88fd34c43e1fcc50",
+        "type": "inject",
+        "z": "6df5eb93d91b3e31",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 400,
+        "wires": [
+            [
+                "e8a79d815b151d53"
+            ]
+        ]
+    },
+    {
+        "id": "43a1179f9d6144e1",
+        "type": "websocket in",
+        "z": "6df5eb93d91b3e31",
+        "name": "",
+        "server": "c73459c0904a181d",
+        "client": "",
+        "x": 210,
+        "y": 320,
+        "wires": [
+            [
+                "6525224be1950a73"
+            ]
+        ]
+    },
+    {
+        "id": "a52545ea7e4dddd6",
+        "type": "websocket out",
+        "z": "6df5eb93d91b3e31",
+        "name": "",
+        "server": "c73459c0904a181d",
+        "client": "",
+        "x": 830,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "6525224be1950a73",
+        "type": "function",
+        "z": "6df5eb93d91b3e31",
+        "name": "GetJson",
+        "func": "try {\n    var jsonObject = JSON.parse(msg.payload); // Converte msg.payload para um objeto JSON\n\n    // Acessa os valores do objeto JSON\n    var countTenis = jsonObject[\"Contador1\"]; // Acessa Contador1 do objeto JSON\n    var countSalto = jsonObject[\"Contador2\"];\n    var countChinelo = jsonObject[\"Contador3\"];\n    var classeInferida = jsonObject[\"Classe\"]\n\n\n\n    //var objeto = jsonObject[\"Objeto\"]; // Acessa Objeto do objeto JSON\n\n    // Criar um objeto Date, que representará a data e hora atuais\n    let dataAtual = new Date();\n    // Obter o ano\n    let ano = dataAtual.getFullYear();\n    // Obter o mês (vale lembrar que os meses são indexados de 0 a 11)\n    let mes = dataAtual.getMonth() + 1; // Adicionamos 1 para que janeiro seja 1, fevereiro seja 2, etc.\n    // Obter o dia do mês\n    let dia = dataAtual.getDate();\n    // Obter as horas\n    let horas = dataAtual.getHours();\n    // Obter os minutos\n    let minutos = dataAtual.getMinutes();\n    // Obter os segundos\n    let segundos = dataAtual.getSeconds();\n\n    let dataFormatada = ano + '-' + mes + '-' + dia; // Formato ISO 8601 para data\n    let horaFormatada = horas + ':' + minutos + ':' + segundos; // Formato HH:MM:S\n    msg.topic = `INSERT INTO dados (countTenis,countSandalha,CountSalto, dia, hora,object) VALUES (${countTenis},${countSalto},${countChinelo},'${dataFormatada}','${horaFormatada}','${classeInferida}');`;\n    global.set('myData', jsonObject); // Armazena o objeto JSON globalmente\n    msg.payload = jsonObject; // Atualiza a carga útil da mensagem com o objeto JSON\n\n} catch (e) {\n    msg.payload = { error: 'Invalid JSON format' }; // Define a carga útil como erro se ocorrer uma exceção\n}\nreturn msg; // Retorna a mensagem processada\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "6327d6e603ed8e38",
+                "348ea77feed2c0d0"
+            ]
+        ]
+    },
+    {
+        "id": "e8a79d815b151d53",
+        "type": "function",
+        "z": "6df5eb93d91b3e31",
+        "name": "EnviaJson",
+        "func": "// Recuperar o JSON armazenado\nvar jsonObject = global.get('myData'); // ou flow.get('myData') se for no contexto de fluxo\n\n// Preparar a mensagem para enviar pelo WebSocket\nmsg.payload = JSON.stringify(jsonObject); // Converter o objeto de volta para string JSON\n\n// Retornar a mensagem para o node websocket out\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 400,
+        "wires": [
+            [
+                "a52545ea7e4dddd6"
+            ]
+        ]
+    },
+    {
+        "id": "a336ab034ca479c5",
+        "type": "debug",
+        "z": "6df5eb93d91b3e31",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1460,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "348ea77feed2c0d0",
+        "type": "mysql",
+        "z": "6df5eb93d91b3e31",
+        "mydb": "df56e34de5927394",
+        "name": "BD",
+        "x": 690,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    }
+]

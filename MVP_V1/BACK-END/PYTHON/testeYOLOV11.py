@@ -10,18 +10,16 @@ modelYolo = YOLO("BACK-END/PYTHON/Pre-Training-Yolo-Model/best.pt")
 
 cap = cv2.VideoCapture(0)
 assert cap.isOpened(), "Error reading video file"
+
 w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS))
-# Placeholder para exibir os frames
 frame_placeholder = st.empty()
 
-# Define region points
 line_points = [(20, 400), (1080, 400)]
 listaVerificaPerson = set()
 listaVerificaCup = set()
 listaVerificaCellPhone = set()
 class_name = ''
 
-# Init Object Counter
 counter = solutions.ObjectCounter(
     show=False,
     region=line_points,
@@ -47,11 +45,10 @@ while cap.isOpened():
     cell_phone_out = pegaClasse.get('Chinelo', {}).get('OUT', 0)
 
     for result in results:
-        # Iterar sobre as detecções
+        
         for box in result.boxes:
-            class_id = int(box.cls)  # ID da classe detectada
-            class_name = modelYolo.names[class_id]  # Nome da classe
-            print(class_name)
+            class_id = int(box.cls)  
+            class_name = modelYolo.names[class_id]  
 
     if person_out not in listaVerificaPerson or cup_out not in listaVerificaCup or cell_phone_out not in listaVerificaCellPhone:
         _, buffer = cv2.imencode('.jpg', im0)

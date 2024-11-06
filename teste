@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://10.110.12.20:1880/ws/data");
+var ws = new WebSocket("ws://10.110.12.34:1880/ws/data");
 
 let stackTenis = [];
 let stackSalto = [];
@@ -54,12 +54,12 @@ ws.onmessage = function (event) {
 
 function chartsToShow() {
   var optionsDonut = {
-    series: [1, 1, 1],
+    series: [0, 0, 0],
     labels: ["Tênis", "Sandália", "Chinelo"],
     chart: {
       type: "donut",
       width: 300,
-      height: 300
+      height: 300,
     },
     responsive: [
       {
@@ -295,7 +295,7 @@ function updateCharts() {
       labels: {
         show: true,
         style: {
-          fontSize: '30px',
+          fontSize: '10px',
         },
         rotate: -45, // Rotaciona as labels para evitar sobreposição
         formatter: function (val) {

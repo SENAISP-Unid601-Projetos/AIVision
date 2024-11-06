@@ -72,6 +72,7 @@ main {
     flex-direction: row;
     align-items: center;
     margin-bottom: 0;
+    font-size: 25px;
     gap: 30px;
 }
 
@@ -80,7 +81,7 @@ main {
 }
 
 .header h1 {
-    font-size: 1.5rem;
+    font-size: 2.3rem;
     margin-bottom: 0;
     color: #ABDCFF;
     font-family: "Agdasima", sans-serif;
@@ -88,7 +89,7 @@ main {
 
 #chart-donut,
 #chart-line {
-    max-width: 400px;
+    width: 500px;
     margin-bottom: 20px;
 }
 
@@ -123,6 +124,7 @@ main {
 .sparkboxes .box strong {
     display: block;
     color: #fff;
+    font-size: 25px;
 }
 
 /* Cores dos gráficos */

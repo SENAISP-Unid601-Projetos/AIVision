@@ -1,0 +1,84 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  header,
+  footer {
+    padding: 1rem;
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .containerCharts{
+    display: flex;
+  }
+  .chartAcuracia, .chartRecall, .chartPrecisao{
+    margin: 1rem;
+  }
+  .metricas {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .buttons {
+    display: flex;
+    gap: 0.5rem;
+    width: auto;
+  }
+  button {
+    transition: all 0.1s ease-in-out;
+    width: max-content;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    color: white;
+    font-weight: 500;
+    border-radius: 100rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: rgb(33, 123, 226);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    &:hover {
+      filter: brightness(0.9);
+      box-shadow: 0 0px 2px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  .matriz-confusao {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgb(219, 219, 219);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    h4 {
+      padding: 0.25rem 1rem;
+    }
+    div {
+      display: flex;
+      flex-direction: row;
+      h4 {
+        padding: 0.25rem;
+        writing-mode: vertical-rl;
+        text-orientation: sideways-right;
+        border-top: 2px solid rgb(219, 219, 219);
+      }
+      table {
+        border-collapse: collapse;
+        td,
+        th {
+          border-top: 2px solid rgb(219, 219, 219);
+          border-left: 2px solid rgb(219, 219, 219);
+          padding: 0.25rem;
+        }
+      }
+    }
+  }
+  

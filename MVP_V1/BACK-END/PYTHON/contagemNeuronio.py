@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 # Carrega o modelo YOLOv8
-model = YOLO('MVP_V1/BACK-END/PYTHON/Pre-Training-Yolo-Model/best.pt')  # substitua 'yolov8n.pt' pelo caminho do seu modelo YOLOv8
+model = YOLO('MVP_V1/BACK-END/PYTHON/Pre-Training-Yolo-Model/best12.pt')  # substitua 'yolov8n.pt' pelo caminho do seu modelo YOLOv8
 
 # Exibe a estrutura completa do modelo
 print("Estrutura do modelo:")

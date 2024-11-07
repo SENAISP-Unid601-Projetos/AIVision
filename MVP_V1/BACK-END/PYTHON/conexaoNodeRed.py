@@ -7,13 +7,12 @@ class EnviarDados:
     url = 'ws://127.0.0.1:1880/ws/data'  # Url servidor
     
     @staticmethod
-    def gerar_dados(cont1, cont2, cont3,objeto):
+    def gerar_dados(cont1, cont2, cont3):
         """Gera o dicionário com os dados dos contadores."""
         return {
             'Contador1': cont1,
             'Contador2': cont2,
-            'Contador3': cont3,
-            'Classe':objeto
+            'Contador3': cont3
         }
 
     @staticmethod

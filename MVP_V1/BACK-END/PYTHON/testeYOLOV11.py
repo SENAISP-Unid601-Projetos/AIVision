@@ -6,7 +6,7 @@ import streamlit as st
 
 url = 'ws://127.0.0.1:1880/ws/data'
 
-modelYolo = YOLO("BACK-END/PYTHON/Pre-Training-Yolo-Model/best.pt")
+modelYolo = YOLO("MVP_V1/BACK-END/PYTHON/Pre-Training-Yolo-Model/best12.pt")
 
 cap = cv2.VideoCapture(0)
 assert cap.isOpened(), "Error reading video file"
@@ -14,16 +14,16 @@ assert cap.isOpened(), "Error reading video file"
 w, h, fps = (int(cap.get(x)) for x in (cv2.CAP_PROP_FRAME_WIDTH, cv2.CAP_PROP_FRAME_HEIGHT, cv2.CAP_PROP_FPS))
 frame_placeholder = st.empty()
 
-line_points = [(20, 400), (1080, 400)]
+line_points = [(400, 20), (400, 1080)]
 listaVerificaPerson = set()
 listaVerificaCup = set()
 listaVerificaCellPhone = set()
 class_name = ''
 
 counter = solutions.ObjectCounter(
-    show=False,
+    show=True,
     region=line_points,
-    model=("BACK-END/PYTHON/Pre-Training-Yolo-Model/best.pt")
+    model=("MVP_V1/BACK-END/PYTHON/Pre-Training-Yolo-Model/best12.pt")
 )
 
 # Process video
@@ -56,7 +56,7 @@ while cap.isOpened():
         listaVerificaPerson.add(person_out)
         listaVerificaCup.add(cup_out)
         listaVerificaCellPhone.add(cell_phone_out)
-        dados = EnviarDados.gerar_dados(person_out, cup_out, cell_phone_out,class_name,img_base64)
+        dados = EnviarDados.gerar_dados(person_out, cup_out, cell_phone_out,class_name)
         EnviarDados.repetir_conexao(dados)
 
     if cv2.waitKey(1) & 0xFF == ord("q"):

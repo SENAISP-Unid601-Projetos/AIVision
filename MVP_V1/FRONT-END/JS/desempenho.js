@@ -1,12 +1,8 @@
-var ws = new WebSocket("ws://10.110.12.20:1880/ws/data");
+var ws = new WebSocket("ws://10.110.12.41:1880/ws/data");
 
 let stackTenis = [];
 let stackSalto = [];
 let stackRasteirinha = [];
-let avgStackTenis = [];
-let avgStackSalto = [];
-let avgStackRasteirinha = [];
-let intervalSet = false;
 let seconds = [];
 let secondCounter = 0;
 
@@ -17,6 +13,8 @@ let chartLine;
 window.onload = function () {
   chartsToShow();
 };
+
+let intervalSet = false;
 
 ws.onmessage = function (event) {
   var data = JSON.parse(event.data);
@@ -52,15 +50,26 @@ ws.onmessage = function (event) {
   }
 };
 
+
 function chartsToShow() {
   var optionsDonut = {
-    series: [1, 1, 1],
-    labels: ["Tênis", "Sandália", "Chinelo"],
+    // dataLabels: {
+    //     enabled: true,  // Habilita os rótulos de dados
+    //     style: {
+    //       colors: ['#333']  // Cor do texto dos rótulos de dados
+    //     },
+    //     offsetX: 30  // Desloca os rótulos para a direita
+    //   },
+    series: [0, 0, 0],
+    labels: ["Tênis", "Salto Alto", "Chinelo"],
     chart: {
       type: "donut",
       width: 300,
-      height: 300
+      height: 300,
+      fontSize: "38px",
+
     },
+
     responsive: [
       {
         breakpoint: 480,
@@ -102,7 +111,7 @@ function chartsToShow() {
         data: stackTenis, // Inicia com 12 valores zerados
       },
       {
-        name: "Sandália",
+        name: "Salto Alto",
         data: stackSalto, // Inicia com 12 valores zerados
       },
       {
@@ -281,7 +290,7 @@ function updateCharts() {
 
   const lineserie = [
     { name: "Tênis", data: stackTenis },
-    { name: "Sandália", data: stackSalto },
+    { name: "Salto Alto", data: stackSalto },
     { name: "Chinelo", data: stackRasteirinha },
   ];
   chartLine.updateSeries(lineserie);
@@ -295,7 +304,7 @@ function updateCharts() {
       labels: {
         show: true,
         style: {
-          fontSize: '30px',
+          fontSize: '17px',
         },
         rotate: -45, // Rotaciona as labels para evitar sobreposição
         formatter: function (val) {
@@ -311,50 +320,3 @@ function updateCharts() {
   ApexCharts.exec("spark3", "updateSeries", [{ data: stackRasteirinha }]); // Chinelo
 }
 
-// Função para calcular a média de 30 segundos e atualizar os arrays de médias
-function calculateAverages() {
-  const avgTenis = stackTenis.length > 0 ? stackTenis.reduce((a, b) => a + b, 0) / stackTenis.length : 0;
-  const avgSalto = stackSalto.length > 0 ? stackSalto.reduce((a, b) => a + b, 0) / stackSalto.length : 0;
-  const avgRasteirinha = stackRasteirinha.length > 0 ? stackRasteirinha.reduce((a, b) => a + b, 0) / stackRasteirinha.length : 0;
-
-  avgStackTenis.push(avgTenis);
-  avgStackSalto.push(avgSalto);
-  avgStackRasteirinha.push(avgRasteirinha);
-
-  // Limita o tamanho do array de médias para manter somente os últimos 10 valores
-  if (avgStackTenis.length > 10) avgStackTenis.shift();
-  if (avgStackSalto.length > 10) avgStackSalto.shift();
-  if (avgStackRasteirinha.length > 10) avgStackRasteirinha.shift();
-
-  // Limpa os stacks após calcular a média
-  stackTenis = [];
-  stackSalto = [];
-  stackRasteirinha = [];
-
-  updateLineChart();
-}
-
-// Função para atualizar o gráfico de linhas com as médias calculadas
-function updateLineChart() {
-  const lineSeries = [
-    { name: "Tênis", data: avgStackTenis },
-    { name: "Sandália", data: avgStackSalto },
-    { name: "Chinelo", data: avgStackRasteirinha },
-  ];
-  
-  chartLine.updateSeries(lineSeries);
-
-  // Atualiza o eixo x com os tempos de intervalo de 30s
-  let categories = Array.from({ length: avgStackTenis.length }, (_, i) => `${(i + 1) * 30}s`);
-  chartLine.updateOptions({
-    xaxis: {
-      categories: categories,
-    },
-  });
-}
-
-// Define o intervalo para calcular a média a cada 30 segundos
-if (!intervalSet) {
-  setInterval(calculateAverages, 30000); // 30 segundos
-  intervalSet = true;
-}

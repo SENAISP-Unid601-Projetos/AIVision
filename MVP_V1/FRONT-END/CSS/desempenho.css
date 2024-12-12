@@ -11,7 +11,6 @@
 html, body {
     height: 100%;
 }
-
 /* Estilo do corpo */
 body {
     display: flex;
@@ -175,3 +174,29 @@ footer {
         width: 100%;
     }
 }
+.footer {
+    background-color:  #02407e;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px; 
+
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.footer-link {
+    color: #58a6ff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+  

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Integração WebSocket - Sharktech</title>
+    <title>Dashboard Sharktech</title>
     <link rel="stylesheet" href="../CSS/desempenho.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -19,16 +19,16 @@
       <h1>Sharktech</h1>
 
       <ul class="nav-shark">
-        <li>Dashboard</li>
+        <a href="metricas.html" target="_blank" style="text-decoration: none; color: #fff;"><li>Metricas</li></a>
         <li>Sobre</li>
       </ul>
     </header>
 
-    <main class="container-principal">
+    <main class="container-principal" style="background: linear-gradient(to bottom, #87ceeb, #ffffff);">
       <div class="content-layout">
         <div class="camera-charts-position">
           <div class="camera-container">
-            <iframe height="800" id="videoElement" src="http://10.110.12.41:8501" frameborder="0"></iframe>
+            <iframe height="800" id="videoElement" src="http://localhost:8501" frameborder="0"></iframe>
           </div>
           <div id="output"></div>
 
@@ -56,6 +56,18 @@
         </div>
       </div>
     </main>
+    <footer class="footer">
+      <div class="footer-content">
+          <p>&copy; 2024 Shark Tech. Todos os direitos reservados.</p>
+          <p>
+              <a href="/sobre" class="footer-link">Sobre</a>
+              |
+              <a href="/contato" class="footer-link">Contato</a>
+              |
+              <a href="/privacidade" class="footer-link">Política de Privacidade</a>
+          </p>
+      </div>
+    </footer>
 
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

@@ -2,8 +2,7 @@ import cv2
 import streamlit as st
 from ultralytics import solutions
 from conexaoNodeRed import EnviarDados
-
-url = 'ws://127.0.0.1:1880/ws/data'
+import base64 
 
 cap = cv2.VideoCapture(0)
 assert cap.isOpened(), "Error reading video file"
@@ -17,9 +16,9 @@ listaVerificaCup = set()
 listaVerificaCellPhone = set()
 
 counter = solutions.ObjectCounter(
-    show=True,
+    show=False,
     region=line_points,
-    model="MVP_V1/BACK-END/PYTHON/Pre-Training-Yolo-Model/best12.pt",
+    model="MVP_V1/BACK-END/PYTHON/Pre-Training-Yolo-Model/best.pt",
 )
 
 while cap.isOpened():
@@ -41,10 +40,12 @@ while cap.isOpened():
     cell_phone_out = pegaClasse.get('Chinelo',{}).get('OUT',0)
 
     if person_out not in listaVerificaPerson or cup_out not in listaVerificaCup or cell_phone_out not in listaVerificaCellPhone:
+        _, buffer = cv2.imencode('.jpg', im0)
+        img_base64 = base64.b64encode(buffer).decode('utf-8')
         listaVerificaPerson.add(person_out)
         listaVerificaCup.add(cup_out)
         listaVerificaCellPhone.add(cell_phone_out)
-        dados = EnviarDados.gerar_dados(person_out,cup_out,cell_phone_out)
+        dados = EnviarDados.gerar_dados(person_out,cup_out,cell_phone_out,img_base64)
         EnviarDados.repetir_conexao(dados)
 
     if cv2.waitKey(1) & 0xFF == ord("q"):

@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://10.110.12.41:1880/ws/data");
+var ws = new WebSocket("ws://127.0.0.1:1880/ws/data");
 
 let stackTenis = [];
 let stackSalto = [];
